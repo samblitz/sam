@@ -1,23 +1,40 @@
--- Script de menu para ativar/desativar colisão no personagem
+-- Script de menu com botão menor, arrastável e imagem de fundo no botão Menu
 
 local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-
 local userInputService = game:GetService("UserInputService")
 local playerGui = player:WaitForChild("PlayerGui")
 
 -- Criação da GUI
-
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "CollisionMenu"
 screenGui.Parent = playerGui
 
--- Botão para abrir/fechar o menu
+-- Frame para o botão Menu (para colocar imagem de fundo e texto)
+local menuButtonFrame = Instance.new("Frame")
+menuButtonFrame.Size = UDim2.new(0, 80, 0, 30) -- botão menor
+menuButtonFrame.Position = UDim2.new(0, 10, 0, 10)
+menuButtonFrame.BackgroundTransparency = 1
+menuButtonFrame.Parent = screenGui
+menuButtonFrame.Active = true
+menuButtonFrame.Draggable = true -- para ser arrastável
+
+-- Imagem de fundo do botão Menu
+local menuImage = Instance.new("ImageLabel")
+menuImage.Size = UDim2.new(1, 0, 1, 0)
+menuImage.Position = UDim2.new(0, 0, 0, 0)
+menuImage.BackgroundTransparency = 1
+menuImage.Image = "rbxassetid://12806098155" -- imagem espaço com planetas e estrelas (exemplo)
+menuImage.Parent = menuButtonFrame
+
+-- Botão Menu (texto sobre a imagem)
 local toggleMenuButton = Instance.new("TextButton")
-toggleMenuButton.Size = UDim2.new(0, 100, 0, 30)
-toggleMenuButton.Position = UDim2.new(0, 10, 0, 10)
+toggleMenuButton.Size = UDim2.new(1, 0, 1, 0)
+toggleMenuButton.BackgroundTransparency = 1
 toggleMenuButton.Text = "Menu"
-toggleMenuButton.Parent = screenGui
+toggleMenuButton.TextColor3 = Color3.new(1, 1, 1)
+toggleMenuButton.Font = Enum.Font.GothamBold
+toggleMenuButton.TextScaled = true
+toggleMenuButton.Parent = menuButtonFrame
 
 -- Frame do menu (inicialmente oculto)
 local menuFrame = Instance.new("Frame")
@@ -26,11 +43,18 @@ menuFrame.Position = UDim2.new(0, 10, 0, 50)
 menuFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 menuFrame.Visible = false
 menuFrame.Parent = screenGui
+menuFrame.ClipsDescendants = true
+menuFrame.Active = true
+menuFrame.Draggable = true -- para poder mover o menu também
 
 -- Botão para ativar/desativar colisão
 local collisionToggleButton = Instance.new("TextButton")
 collisionToggleButton.Size = UDim2.new(1, -20, 0, 40)
 collisionToggleButton.Position = UDim2.new(0, 10, 0, 10)
+collisionToggleButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+collisionToggleButton.TextColor3 = Color3.new(1, 1, 1)
+collisionToggleButton.Font = Enum.Font.GothamBold
+collisionToggleButton.TextScaled = true
 collisionToggleButton.Text = "Desativar Colisão"
 collisionToggleButton.Parent = menuFrame
 
